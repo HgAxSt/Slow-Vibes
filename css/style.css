@@ -10,9 +10,9 @@
   --accent:  #b87d52;
   --text:    #2a1e15;
   --muted:   #7a6254;
+  --wine:    #722f37;
 }
 
-/* ── Reset & Base ────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html { scroll-behavior: smooth; }
@@ -27,7 +27,6 @@ body {
 img { display: block; max-width: 100%; }
 a  { color: inherit; text-decoration: none; }
 
-/* ── Nav ─────────────────────────────────────────── */
 nav {
   position: fixed;
   top: 0; left: 0; right: 0;
@@ -73,14 +72,102 @@ nav.scrolled {
   position: absolute;
   bottom: 0; left: 0;
   width: 0; height: 1px;
-  background: var(--accent);
+  background: var(--wine);
   transition: width 0.35s ease;
 }
 
-.nav-links a:hover { color: var(--accent); }
+.nav-links a:hover { color: var(--wine); }
 .nav-links a:hover::after { width: 100%; }
+#agenda {
+  background: var(--sand);
+  position: relative;
+}
 
-/* ── Hero ────────────────────────────────────────── */
+.agenda-inner {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+#agenda-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 40px;
+}
+
+.agenda-card {
+  display: grid;
+  grid-template-columns: 120px 1fr auto;
+  align-items: center;
+  background: var(--cream);
+  padding: 24px;
+  border-radius: 2px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  border-left: 4px solid var(--wine);
+}
+
+.agenda-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(61,43,31,0.08);
+}
+
+.agenda-card.status-livre {
+  border-left-color: var(--clay);
+  opacity: 0.85;
+}
+
+.agenda-data {
+  font-family: 'Jost', sans-serif;
+  font-weight: 500;
+  font-size: 1.1rem;
+  color: var(--earth);
+  letter-spacing: 0.05em;
+}
+
+.agenda-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.agenda-local {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--earth);
+}
+
+.agenda-horario {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.agenda-status {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  border-radius: 100px;
+  background: var(--wine);
+  color: var(--cream);
+}
+
+.agenda-card.status-livre .agenda-status {
+  background: transparent;
+  color: var(--clay);
+  border: 1px solid var(--clay);
+}
+
+@media (max-width: 600px) {
+  .agenda-card {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    text-align: center;
+    padding: 20px;
+  }
+}
+
 #hero {
   min-height: 100vh;
   display: flex;
@@ -101,7 +188,6 @@ nav.scrolled {
   background-size: cover, 200px 200px;
 }
 
-/* Horizontal stripes like sandstone layers */
 .hero-stripes {
   position: absolute;
   inset: 0;
@@ -162,7 +248,6 @@ nav.scrolled {
   animation: scrollLine 2s ease-in-out 2s infinite;
 }
 
-/* ── Section Base ────────────────────────────────── */
 section { padding: 100px 24px; }
 
 .section-label {
@@ -171,7 +256,7 @@ section { padding: 100px 24px; }
   font-weight: 500;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--wine);
   margin-bottom: 18px;
 }
 
@@ -186,11 +271,10 @@ section { padding: 100px 24px; }
 .divider {
   width: 48px;
   height: 2px;
-  background: var(--accent);
+  background: var(--wine);
   margin: 28px 0 40px;
 }
 
-/* ── About ───────────────────────────────────────── */
 #sobre {
   background: var(--cream);
   position: relative;
@@ -207,6 +291,14 @@ section { padding: 100px 24px; }
 
 .about-visual {
   position: relative;
+  border: 2px solid transparent; 
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+  border-radius: 4px;
+}
+
+.about-visual:hover {
+  border-color: var(--wine); /* Ativa a borda vinho */
+  box-shadow: 0 0 15px rgba(114, 47, 55, 0.3); /* Opcional: um brilho suave vinho no container */
 }
 
 .about-wave-bg {
@@ -223,6 +315,11 @@ section { padding: 100px 24px; }
   width: 100%;
   padding: 40px;
   filter: drop-shadow(0 20px 40px rgba(61,43,31,0.15));
+  transition: filter 0.4s ease;
+}
+
+.about-logo-display:hover {
+  filter: drop-shadow(0 20px 40px rgba(114, 47, 55, 0.6)); /* Vinho com opacidade */
 }
 
 .about-text p {
@@ -254,15 +351,15 @@ section { padding: 100px 24px; }
   text-transform: uppercase;
   padding: 7px 16px;
   border-radius: 100px;
-  transition: background 0.3s, color 0.3s;
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
 }
 
 .tag:hover {
-  background: var(--clay);
+  background: var(--wine);
   color: var(--cream);
+  border-color: var(--wine);
 }
 
-/* ── Members ─────────────────────────────────────── */
 #integrantes {
   background: var(--sand);
   position: relative;
@@ -274,7 +371,7 @@ section { padding: 100px 24px; }
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 3px;
-  background: linear-gradient(90deg, transparent, var(--clay), transparent);
+  background: linear-gradient(90deg, transparent, var(--wine), transparent);
 }
 
 .members-inner {
@@ -320,7 +417,6 @@ section { padding: 100px 24px; }
   transform: scale(1.05);
 }
 
-/* Placeholder when no image */
 .member-placeholder {
   width: 100%;
   height: 100%;
@@ -344,7 +440,7 @@ section { padding: 100px 24px; }
   font-weight: 500;
   letter-spacing: 0.25em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--wine);
   margin-bottom: 6px;
 }
 
@@ -355,7 +451,6 @@ section { padding: 100px 24px; }
   color: var(--earth);
 }
 
-/* ── Contact ─────────────────────────────────────── */
 #contato {
   background: var(--earth);
   position: relative;
@@ -388,7 +483,7 @@ section { padding: 100px 24px; }
 }
 
 #contato .section-label {
-  color: var(--clay);
+  color: var(--wine);
 }
 
 #contato .divider {
@@ -433,7 +528,7 @@ section { padding: 100px 24px; }
   color: var(--cream);
 }
 
-.btn-whatsapp:hover { background: #d4956a; }
+.btn-whatsapp:hover { background: var(--wine); }
 
 .btn-instagram {
   background: transparent;
@@ -442,13 +537,12 @@ section { padding: 100px 24px; }
 }
 
 .btn-instagram:hover {
-  background: rgba(200,160,122,0.12);
-  border-color: var(--clay);
+  background: var(--wine);
+  border-color: var(--wine);
 }
 
 .btn svg { width: 18px; height: 18px; flex-shrink: 0; }
 
-/* ── Footer ──────────────────────────────────────── */
 footer {
   background: #1e130e;
   padding: 32px 24px;
@@ -469,7 +563,6 @@ footer p {
   opacity: 0.7;
 }
 
-/* ── Animations ──────────────────────────────────── */
 @keyframes fadeUp {
   to { opacity: 1; transform: translateY(0); }
 }
@@ -493,7 +586,6 @@ footer p {
   transform: translateY(0);
 }
 
-/* stagger children */
 .reveal-stagger > * {
   opacity: 0;
   transform: translateY(28px);
@@ -504,7 +596,6 @@ footer p {
 .reveal-stagger.visible > *:nth-child(2) { opacity:1; transform:translateY(0); transition-delay:0.12s; }
 .reveal-stagger.visible > *:nth-child(3) { opacity:1; transform:translateY(0); transition-delay:0.24s; }
 
-/* ── Responsive ──────────────────────────────────── */
 @media (max-width: 900px) {
   nav { padding: 16px 24px; }
   .nav-links { gap: 24px; }
