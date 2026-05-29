@@ -1,11 +1,9 @@
-/* ── Nav scroll state ─────────────────────────────── */
 const nav = document.getElementById('main-nav');
 
 window.addEventListener('scroll', () => {
   nav.classList.toggle('scrolled', window.scrollY > 40);
 }, { passive: true });
 
-/* ── Scroll-reveal with IntersectionObserver ─────── */
 const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
 
 const observer = new IntersectionObserver(
@@ -22,7 +20,6 @@ const observer = new IntersectionObserver(
 
 revealEls.forEach((el) => observer.observe(el));
 
-/* ── Smooth active link highlight ────────────────── */
 const sections  = document.querySelectorAll('section[id]');
 const navLinks  = document.querySelectorAll('.nav-links a');
 
@@ -67,6 +64,7 @@ async function carregarAgenda() {
         const local = columns[1].trim();
         const horario = columns[2].trim();
         const status = columns[3].trim();
+        const linkVideo = columns[4] ? columns[4].trim() : null;
 
         const card = document.createElement('div');
         card.className = 'agenda-card';
@@ -77,11 +75,17 @@ async function carregarAgenda() {
           card.classList.add('status-ocupado');
         }
 
+        let videoHtml = '';
+        if (linkVideo) {
+          videoHtml = `<a href="${linkVideo}" target="_blank" rel="noopener noreferrer" class="btn-video">Assistir Show</a>`;
+        }
+
         card.innerHTML = `
           <div class="agenda-data">${dataShow}</div>
           <div class="agenda-info">
             <h3 class="agenda-local">${local}</h3>
             <span class="agenda-horario">${horario}</span>
+            ${videoHtml}
           </div>
           <div class="agenda-status">${status}</div>
         `;
