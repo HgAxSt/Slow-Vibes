@@ -1,48 +1,34 @@
 const nav = document.getElementById('main-nav');
 
 window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 40);
+  if (nav) nav.classList.toggle('scrolled', window.scrollY > 40);
 }, { passive: true });
 
 const revealEls = document.querySelectorAll('.reveal, .reveal-stagger');
 
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        observer.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.12 }
-);
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12 });
 
 revealEls.forEach((el) => observer.observe(el));
 
-<<<<<<< HEAD
 const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('.nav-links a');
-=======
-const sections  = document.querySelectorAll('section[id]');
-const navLinks  = document.querySelectorAll('.nav-links a');
->>>>>>> 3db4ad4d33bb3513a826f4bf2b6cac9f2916a641
 
-const sectionObserver = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        navLinks.forEach((a) => {
-          a.classList.toggle(
-            'active',
-            a.getAttribute('href') === `#${entry.target.id}`
-          );
-        });
-      }
-    });
-  },
-  { rootMargin: '-40% 0px -55% 0px' }
-);
+const sectionObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      navLinks.forEach((a) => {
+        a.classList.toggle('active', a.getAttribute('href') === `#${entry.target.id}`);
+      });
+    }
+  });
+}, { rootMargin: '-40% 0px -55% 0px' });
 
 sections.forEach((s) => sectionObserver.observe(s));
 
@@ -67,11 +53,7 @@ function parseDataBR(dataStr) {
     'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'
   ];
 
-  return {
-    dataObj,
-    mesStr: nomesMeses[mes],
-    ano
-  };
+  return { dataObj, mesStr: nomesMeses[mes], ano };
 }
 
 async function carregarAgenda() {
@@ -80,6 +62,8 @@ async function carregarAgenda() {
     const data = await response.text();
     const rows = data.split('\n').slice(1);
     const container = document.getElementById('agenda-container');
+    
+    if (!container) return;
     container.innerHTML = '';
 
     const showsAgrupados = {};
@@ -96,11 +80,7 @@ async function carregarAgenda() {
         const dataShow = columns[0].trim();
         const local = columns[1].trim();
         const horario = columns[2].trim();
-<<<<<<< HEAD
         let status = columns[3].trim();
-=======
-        const status = columns[3].trim();
->>>>>>> 3db4ad4d33bb3513a826f4bf2b6cac9f2916a641
         const linkVideo = columns[4] ? columns[4].trim() : null;
 
         const { dataObj, mesStr, ano } = parseDataBR(dataShow);
@@ -149,25 +129,15 @@ async function carregarAgenda() {
         }
 
         let videoHtml = '';
-<<<<<<< HEAD
         if (show.linkVideo) {
           videoHtml = `<a href="${show.linkVideo}" target="_blank" rel="noopener noreferrer" class="btn-video">Assistir Show</a>`;
-=======
-        if (linkVideo) {
-          videoHtml = `<a href="${linkVideo}" target="_blank" rel="noopener noreferrer" class="btn-video">Assistir Show</a>`;
->>>>>>> 3db4ad4d33bb3513a826f4bf2b6cac9f2916a641
         }
 
         card.innerHTML = `
           <div class="agenda-data">${show.dataShow}</div>
           <div class="agenda-info">
-<<<<<<< HEAD
             <h3 class="agenda-local">${show.local}</h3>
             <span class="agenda-horario">${show.horario}</span>
-=======
-            <h3 class="agenda-local">${local}</h3>
-            <span class="agenda-horario">${horario}</span>
->>>>>>> 3db4ad4d33bb3513a826f4bf2b6cac9f2916a641
             ${videoHtml}
           </div>
           <div class="agenda-status">${show.status}</div>
